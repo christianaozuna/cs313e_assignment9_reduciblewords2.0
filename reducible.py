@@ -65,7 +65,7 @@ def step_size(s):
     """
     return (STEP_SIZE_CONSTANT - (hash_word(s, STEP_SIZE_CONSTANT) % STEP_SIZE_CONSTANT))
 
-# works? i think there's an infinite loop maybe
+# WORKS
 def insert_word(s, hash_table):
     """
     Inserts a string into the hash table using double hashing for collision resolution.
@@ -78,7 +78,7 @@ def insert_word(s, hash_table):
     size = len(hash_table)
     string_index = hash_word(s, size)
     # if there is a collision
-    while hash_table[string_index] is not None:
+    while hash_table[string_index] != "":
         # if already in the hash table
         if hash_table[string_index] == s:
             return
@@ -88,7 +88,7 @@ def insert_word(s, hash_table):
     hash_table[string_index] = s
 
 
-# works? also maybe an infinite loop
+# WORKS
 def find_word(s, hash_table):
     """
     Searches for a string in the hash table.
@@ -100,7 +100,7 @@ def find_word(s, hash_table):
     """
     size = len(hash_table)
     string_index = hash_word(s, size)
-    while hash_table[string_index] is not None:
+    while hash_table[string_index] != "":
         # if string in hash table
         if hash_table[string_index] == s:
             return True
@@ -131,7 +131,7 @@ def is_reducible(s, hash_table, hash_memo):
         return True
 
     # Check if the word is in the original hash_table
-    if s not in hash_table:
+    if not find_word(s, hash_table):
         return False
 
     for i in range(len(s)):
