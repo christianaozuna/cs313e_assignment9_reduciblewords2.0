@@ -136,7 +136,11 @@ def is_reducible(s, hash_table, hash_memo):
 
     for i in range(len(s)):
         reduced_word = s[:i] + s[i+1:]
-        # recursive call
+        # checking if in hash memo
+        if find_word(reduced_word, hash_memo):
+            hash_memo[index] = s
+            return True
+        # rescursive call
         if is_reducible(reduced_word, hash_table, hash_memo):
             # adding reduced word to memoization table
             hash_memo[index] = s
