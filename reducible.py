@@ -147,6 +147,7 @@ def is_reducible(s, hash_table, hash_memo):
 
     return False
 
+
 # WORKS
 def get_longest_words(string_list):
     """
