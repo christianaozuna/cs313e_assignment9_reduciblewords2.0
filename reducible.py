@@ -110,7 +110,7 @@ def find_word(s, hash_table):
     return False
 
 
-# FAILING TWO
+# WORKS
 def is_reducible(s, hash_table, hash_memo):
     """
     Determines if a string is reducible using a recursive check.
@@ -126,8 +126,7 @@ def is_reducible(s, hash_table, hash_memo):
         return True
 
     # checking if in cache
-    index = hash_word(s, len(hash_memo))
-    if s in hash_memo[index]:
+    if find_word(s, hash_memo):
         return True
 
     # Check if the word is in the original hash_table
@@ -138,11 +137,11 @@ def is_reducible(s, hash_table, hash_memo):
         reduced_word = s[:i] + s[i+1:]
         # rescursive call
         if find_word(reduced_word, hash_memo):
-            hash_memo[index] = s
+            insert_word(s, hash_memo)
             return True
         if is_reducible(reduced_word, hash_table, hash_memo):
             # adding reduced word to memoization table
-            hash_memo[index] = s
+            insert_word(s, hash_memo)
             return True
 
     return False
@@ -170,7 +169,6 @@ def get_longest_words(string_list):
 
     return longest_words
 
-# TODO: Modify this function. You may delete this comment when you are done.
 def main():
     """The main function that calculates the longest reducible words"""
     # create an empty word_list
@@ -193,14 +191,14 @@ def main():
 
     # determine prime number N that is greater than twice
     # the length of the word_list
-    N = 2 * length_word_list
-    while not is_prime(N):
-        N += 1
+    n = 2 * length_word_list
+    while not is_prime(n):
+        n += 1
 
     # create an empty hash_list
 
     # populate the hash_list with N blank strings
-    hash_list = [""] * N
+    hash_list = [""] * n
 
     # hash each word in word_list into hash_list
     # for collisions use double hashing
@@ -212,12 +210,12 @@ def main():
     # let us assume it is 10 percent (fairly safe) of the words
     # then M is a prime number that is slightly greater than
     # 0.2 * size of word_list
-    M = int(.2 * length_word_list)
-    while not is_prime(M):
-        M += 1
+    m = int(.2 * length_word_list)
+    while not is_prime(m):
+        m += 1
 
     # populate the hash_memo with M blank strings
-    hash_memo = [""] * M
+    hash_memo = [""] * m
 
     # create an empty list reducible_words
     reducible_words = []
