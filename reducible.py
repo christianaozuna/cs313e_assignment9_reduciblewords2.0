@@ -158,8 +158,7 @@ def get_longest_words(string_list):
     max_length = 0
     for string in string_list:
         length = len(string)
-        if length > max_length:
-            max_length = length
+        max_length = max(length, max_length)
 
     # finding words with max length
     longest_words = []
